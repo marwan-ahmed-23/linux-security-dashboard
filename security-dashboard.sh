@@ -78,7 +78,34 @@ else
     echo "No unusual processes running as root." >> $REPORT
     echo "<li>No unusual processes running as root.</li>" >> $HTML_REPORT
 fi
+echo "</ul>" >> $HTML_REPORT
 
+# Monitor Network Activity
+echo "[+] Monitoring Network Activity..."
+echo "Network Activity:" >> $REPORT
+echo "<h2>Network Activity</h2><ul>" >> $HTML_REPORT
+
+# Display active connections
+ACTIVE_CONNECTIONS=$(netstat -tuln)
+if [[ ! -z "$ACTIVE_CONNECTIONS" ]]; then
+    echo "Active Connections:" >> $REPORT
+    echo "$ACTIVE_CONNECTIONS" >> $REPORT
+    echo "<li>Active Connections:</li><pre>$ACTIVE_CONNECTIONS</pre>" >> $HTML_REPORT
+else
+    echo "No active connections found." >> $REPORT
+    echo "<li>No active connections found.</li>" >> $HTML_REPORT
+fi
+
+# Check for suspicious external connections
+SUSPICIOUS_CONNECTIONS=$(netstat -an | grep ESTABLISHED | awk '$5 !~ /127.0.0.1/ && $5 !~ /::1/')
+if [[ ! -z "$SUSPICIOUS_CONNECTIONS" ]]; then
+    echo "Suspicious External Connections:" >> $REPORT
+    echo "$SUSPICIOUS_CONNECTIONS" >> $REPORT
+    echo "<li>Suspicious External Connections:</li><pre>$SUSPICIOUS_CONNECTIONS</pre>" >> $HTML_REPORT
+else
+    echo "No suspicious external connections found." >> $REPORT
+    echo "<li>No suspicious external connections found.</li>" >> $HTML_REPORT
+fi
 echo "</ul>" >> $HTML_REPORT
 
 # Finalize HTML report
