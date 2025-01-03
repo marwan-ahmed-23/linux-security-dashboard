@@ -84,19 +84,19 @@ The following packages can be updated:
 ---------------------------------------
 ```
 
-**HTML Report:**
+### HTML Report:
 Open `security-dashboard-report.html` for a visually structured version of the report.
 
 ## 🛠️ Planned Features
-Vulnerability Scanning:
+- Vulnerability Scanning:
 - Integrate tools like `osv-scanner` or `lynis` to detect known CVEs.
-Advanced User Analysis:
+- Advanced User Analysis:
 - Highlight users with risky configurations or recent failed login attempts.
-Web Interface:
+- Web Interface:
 - Provide a lightweight web dashboard for real-time security monitoring.
-Task Automation:
+- Task Automation:
 - Schedule periodic scans using `cron` or systemd timers.
-Custom Rules:
+- Custom Rules:
 - Allow users to define specific rules for security checks.
 
 ## 🤝 Contributions
