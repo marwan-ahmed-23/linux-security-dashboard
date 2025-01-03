@@ -1,10 +1,53 @@
-Suspicious Processes:
+Security Report - Thu Dec 21 2024
 ---------------------------------------
+Firewall Status:
+Status: active
+To                         Action      From
+--                         ------      ----
+22                         ALLOW       Anywhere
+---------------------------------------
+Sensitive File Permissions:
+/etc/passwd -rw-r--r--
+/etc/shadow -rw-------
+/etc/hosts -rw-r--r--
+---------------------------------------
+Available Updates:
+Listing... Done
+openssl 1.1.1-1ubuntu2.1 -> 1.1.1-1ubuntu2.2
+curl 7.68.0-1ubuntu2.7 -> 7.68.0-1ubuntu2.8
+---------------------------------------
+Suspicious Processes:
 High Resource Usage:
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-user1      1234 55.5 60.2 200000 12000 ?       R    12:00   0:30 some_process
-root       5678 80.3 75.0 300000 15000 ?       R    12:01   1:20 mining_tool
+root      1234 55.0 60.2 200000 12000 ?       R    12:00   0:30 suspicious_process
 
-Processes running as root:
+Unusual Root Processes:
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root       5678 80.3 75.0 300000 15000 ?       R    12:01   1:20 mining_tool
+root      5678 80.0 70.0 300000 15000 ?       R    12:01   1:20 malicious_tool
+---------------------------------------
+Network Activity:
+Active Connections:
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+
+Suspicious External Connections:
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 192.168.1.100:54321     23.45.67.89:80          ESTABLISHED
+---------------------------------------
+Vulnerability Scanning:
+Detected Vulnerabilities:
+[
+  {
+    "package": "openssl",
+    "version": "1.1.1",
+    "cve": "CVE-2024-12345",
+    "severity": "HIGH"
+  },
+  {
+    "package": "curl",
+    "version": "7.68.0",
+    "cve": "CVE-2024-67890",
+    "severity": "MEDIUM"
+  }
+]
