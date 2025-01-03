@@ -1,14 +1,78 @@
-<h2>Suspicious Processes</h2>
-<ul>
-    <li>High Resource Usage:</li>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linux Security Dashboard</title>
+</head>
+<body>
+    <h1>Linux Security Dashboard Report - Thu Dec 21 2024</h1>
+    
+    <h2>Firewall Status</h2>
+    <pre>Status: active
+To                         Action      From
+--                         ------      ----
+22                         ALLOW       Anywhere</pre>
+
+    <h2>Sensitive File Permissions</h2>
+    <ul>
+        <li>/etc/passwd -rw-r--r--</li>
+        <li>/etc/shadow -rw-------</li>
+        <li>/etc/hosts -rw-r--r--</li>
+    </ul>
+
+    <h2>Available Updates</h2>
     <pre>
-    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-    user1      1234 55.5 60.2 200000 12000 ?       R    12:00   0:30 some_process
-    root       5678 80.3 75.0 300000 15000 ?       R    12:01   1:20 mining_tool
+openssl 1.1.1-1ubuntu2.1 -> 1.1.1-1ubuntu2.2
+curl 7.68.0-1ubuntu2.7 -> 7.68.0-1ubuntu2.8
     </pre>
-    <li>Processes running as root:</li>
-    <pre>
-    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-    root       5678 80.3 75.0 300000 15000 ?       R    12:01   1:20 mining_tool
-    </pre>
-</ul>
+
+    <h2>Suspicious Processes</h2>
+    <ul>
+        <li>High Resource Usage:</li>
+        <pre>
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      1234 55.0 60.2 200000 12000 ?       R    12:00   0:30 suspicious_process
+        </pre>
+        <li>Unusual Root Processes:</li>
+        <pre>
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      5678 80.0 70.0 300000 15000 ?       R    12:01   1:20 malicious_tool
+        </pre>
+    </ul>
+
+    <h2>Network Activity</h2>
+    <ul>
+        <li>Active Connections:</li>
+        <pre>
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+        </pre>
+        <li>Suspicious External Connections:</li>
+        <pre>
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 192.168.1.100:54321     23.45.67.89:80          ESTABLISHED
+        </pre>
+    </ul>
+
+    <h2>Vulnerability Scanning</h2>
+    <ul>
+        <li>Detected Vulnerabilities:</li>
+        <pre>
+[
+  {
+    "package": "openssl",
+    "version": "1.1.1",
+    "cve": "CVE-2024-12345",
+    "severity": "HIGH"
+  },
+  {
+    "package": "curl",
+    "version": "7.68.0",
+    "cve": "CVE-2024-67890",
+    "severity": "MEDIUM"
+  }
+]
+        </pre>
+    </ul>
+</body>
+</html>
