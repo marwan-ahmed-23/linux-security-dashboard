@@ -1,6 +1,6 @@
 # 🛡️ Linux Security Dashboard
 
-**Linux Security Dashboard** is a comprehensive, open-source tool designed to monitor and enhance the security of Linux systems. It provides detailed security insights, including firewall status, file permissions, user activity, and system vulnerabilities, through dynamic reports in text and HTML formats.
+**Linux Security Dashboard** is a comprehensive, open-source tool designed to monitor and enhance the security of Linux systems. It provides detailed security insights, including firewall status, file permissions, user activity, network monitoring, and system vulnerabilities, through dynamic reports in text and HTML formats.
 
 ---
 
@@ -13,8 +13,11 @@
 - 🛠️ **System Updates**:
   1. Check for available security updates.
   2. Highlight outdated packages.
-- 🕵️ **Vulnerability Scanning**:
-  1. Analyze the system for known CVEs (Planned Feature).
+- 🌐 **Network Activity Monitoring**:
+  1. Display active network connections (TCP/UDP).
+  2. Detect suspicious external connections.
+- 🕵️ **Vulnerability Scanning** (Planned):
+  1. Analyze the system for known CVEs.
 - 📊 **Dynamic Reporting**:
   1. Generate detailed reports in text and HTML formats.
   2. HTML reports include an easy-to-read, structured layout.
@@ -82,6 +85,14 @@ The following packages can be updated:
  - libc6
  - curl
 ---------------------------------------
+Network Activity:
+Active Connections:
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+
+Suspicious External Connections:
+tcp        0      0 192.168.1.100:54321     23.45.67.89:80          ESTABLISHED
 ```
 
 ### HTML Report:
