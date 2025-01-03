@@ -16,8 +16,9 @@
 - 🌐 **Network Activity Monitoring**:
   1. Display active network connections (TCP/UDP).
   2. Detect suspicious external connections.
-- 🕵️ **Vulnerability Scanning** (Planned):
-  1. Analyze the system for known CVEs.
+- 🕵️ **Vulnerability Scanning**:
+  1. Analyze installed packages for known CVEs using `osv-scanner`.
+  2. Detect weak SSH configurations for enhanced security.
 - 📊 **Dynamic Reporting**:
   1. Generate detailed reports in text and HTML formats.
   2. HTML reports include an easy-to-read, structured layout.
@@ -47,6 +48,10 @@ linux-security-dashboard/
     ```bash
     chmod +x security-dashboard.sh
     ```
+3. Install `osv-scanner` if not already installed:
+    ```bash
+    sudo apt install osv-scanner
+    ```
 ### Running the Tool
 1. Run the script:
     ```bash
@@ -75,15 +80,18 @@ Sensitive File Permissions:
 /etc/shadow -rw-------
 /etc/hosts -rw-r--r--
 ---------------------------------------
-Inactive Users:
-guest
-backup
+Available Updates:
+openssl 1.1.1-1ubuntu2.1 -> 1.1.1-1ubuntu2.2
+curl 7.68.0-1ubuntu2.7 -> 7.68.0-1ubuntu2.8
 ---------------------------------------
-System Updates:
-The following packages can be updated:
- - openssl
- - libc6
- - curl
+Suspicious Processes:
+High Resource Usage:
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      1234 55.0 60.2 200000 12000 ?       R    12:00   0:30 suspicious_process
+
+Unusual Root Processes:
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      5678 80.0 70.0 300000 15000 ?       R    12:01   1:20 malicious_tool
 ---------------------------------------
 Network Activity:
 Active Connections:
@@ -92,21 +100,37 @@ tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN
 tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
 
 Suspicious External Connections:
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
 tcp        0      0 192.168.1.100:54321     23.45.67.89:80          ESTABLISHED
+---------------------------------------
+Vulnerability Scanning:
+Detected Vulnerabilities:
+[
+  {
+    "package": "openssl",
+    "version": "1.1.1",
+    "cve": "CVE-2024-12345",
+    "severity": "HIGH"
+  },
+  {
+    "package": "curl",
+    "version": "7.68.0",
+    "cve": "CVE-2024-67890",
+    "severity": "MEDIUM"
+  }
+]
 ```
 
 ### HTML Report:
 Open `security-dashboard-report.html` for a visually structured version of the report.
 
 ## 🛠️ Planned Features
-- Vulnerability Scanning:
-- Integrate tools like `osv-scanner` or `lynis` to detect known CVEs.
 - Advanced User Analysis:
 - Highlight users with risky configurations or recent failed login attempts.
 - Web Interface:
 - Provide a lightweight web dashboard for real-time security monitoring.
 - Task Automation:
-- Schedule periodic scans using `cron` or systemd timers.
+- Schedule periodic scans using cron or systemd timers.
 - Custom Rules:
 - Allow users to define specific rules for security checks.
 
