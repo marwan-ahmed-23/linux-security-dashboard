@@ -138,7 +138,7 @@ Open `security-dashboard-report.html` for a visually structured version of the r
 - Web Interface:
 - Provide a lightweight web dashboard for real-time security monitoring.
 - Task Automation:
-- Schedule periodic scans using cron or systemd timers.
+- Schedule periodic scans using `cron` or systemd timers.
 - Custom Rules:
 - Allow users to define specific rules for security checks.
 
