@@ -108,6 +108,29 @@ else
 fi
 echo "</ul>" >> $HTML_REPORT
 
+# Vulnerability Scanning
+echo "[+] Performing Vulnerability Scanning..."
+echo "Vulnerability Scanning:" >> $REPORT
+echo "<h2>Vulnerability Scanning</h2><ul>" >> $HTML_REPORT
+
+# Check for vulnerabilities using osv-scanner
+if command -v osv-scanner &>/dev/null; then
+    OSV_RESULTS=$(osv-scanner --json | jq '.results')
+    if [[ ! -z "$OSV_RESULTS" ]]; then
+        echo "Detected Vulnerabilities:" >> $REPORT
+        echo "$OSV_RESULTS" >> $REPORT
+        echo "<li>Detected Vulnerabilities:</li><pre>$OSV_RESULTS</pre>" >> $HTML_REPORT
+    else
+        echo "No vulnerabilities detected using osv-scanner." >> $REPORT
+        echo "<li>No vulnerabilities detected using osv-scanner.</li>" >> $HTML_REPORT
+    fi
+else
+    echo "osv-scanner not installed or not found in PATH." >> $REPORT
+    echo "<li>osv-scanner not installed or not found in PATH.</li>" >> $HTML_REPORT
+fi
+
+echo "</ul>" >> $HTML_REPORT
+
 # Finalize HTML report
 echo "</body></html>" >> $HTML_REPORT
 
