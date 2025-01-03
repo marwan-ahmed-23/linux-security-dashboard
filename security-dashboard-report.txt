@@ -1,0 +1,10 @@
+Suspicious Processes:
+---------------------------------------
+High Resource Usage:
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+user1      1234 55.5 60.2 200000 12000 ?       R    12:00   0:30 some_process
+root       5678 80.3 75.0 300000 15000 ?       R    12:01   1:20 mining_tool
+
+Processes running as root:
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root       5678 80.3 75.0 300000 15000 ?       R    12:01   1:20 mining_tool
