@@ -52,6 +52,35 @@ else
     echo "<h2>Available Updates</h2><pre>Package manager not supported.</pre>" >> $HTML_REPORT
 fi
 
+# Detect Suspicious Processes
+echo "[+] Detecting Suspicious Processes..."
+echo "Suspicious Processes:" >> $REPORT
+echo "<h2>Suspicious Processes</h2><ul>" >> $HTML_REPORT
+
+# High resource usage processes
+HIGH_USAGE=$(ps aux --sort=-%cpu,-%mem | awk '$3>50 || $4>50')
+if [[ ! -z "$HIGH_USAGE" ]]; then
+    echo "Processes with high CPU or memory usage:" >> $REPORT
+    echo "$HIGH_USAGE" >> $REPORT
+    echo "<li>High Resource Usage:</li><pre>$HIGH_USAGE</pre>" >> $HTML_REPORT
+else
+    echo "No processes found with high resource usage." >> $REPORT
+    echo "<li>No processes found with high resource usage.</li>" >> $HTML_REPORT
+fi
+
+# Root processes that are unusual
+ROOT_PROCESSES=$(ps aux | awk '$1=="root" && $11 !~ "sshd|systemd|bash|/usr/sbin/"')
+if [[ ! -z "$ROOT_PROCESSES" ]]; then
+    echo "Unusual processes running as root:" >> $REPORT
+    echo "$ROOT_PROCESSES" >> $REPORT
+    echo "<li>Unusual Root Processes:</li><pre>$ROOT_PROCESSES</pre>" >> $HTML_REPORT
+else
+    echo "No unusual processes running as root." >> $REPORT
+    echo "<li>No unusual processes running as root.</li>" >> $HTML_REPORT
+fi
+
+echo "</ul>" >> $HTML_REPORT
+
 # Finalize HTML report
 echo "</body></html>" >> $HTML_REPORT
 
