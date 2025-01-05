@@ -51,3 +51,19 @@ Detected Vulnerabilities:
     "severity": "MEDIUM"
   }
 ]
+---------------------------------------
+Log Analysis:
+[*] Analyzing /var/log/syslog...
+Errors:
+Jan 05 10:30:45 server-name kernel: [12345.678] ERROR: Disk quota exceeded
+Jan 05 11:00:12 server-name sshd[1234]: error: PAM: Authentication failure for user root
+
+Warnings:
+Jan 05 11:15:00 server-name kernel: [12345.999] WARNING: High memory usage detected
+
+[*] Analyzing /var/log/auth.log...
+Errors:
+Jan 05 12:00:00 server-name sshd[5678]: error: Failed password for invalid user admin from 192.168.1.50 port 22 ssh2
+
+Warnings:
+Jan 05 12:30:00 server-name sshd[5678]: warning: Authentication failure for user root
