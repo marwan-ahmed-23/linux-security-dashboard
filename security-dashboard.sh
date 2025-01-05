@@ -108,26 +108,44 @@ else
 fi
 echo "</ul>" >> $HTML_REPORT
 
-# Vulnerability Scanning
-echo "[+] Performing Vulnerability Scanning..."
-echo "Vulnerability Scanning:" >> $REPORT
-echo "<h2>Vulnerability Scanning</h2><ul>" >> $HTML_REPORT
+# Analyze System Logs
+echo "[+] Analyzing System Logs..."
+echo "Log Analysis:" >> $REPORT
+echo "<h2>Log Analysis</h2><ul>" >> $HTML_REPORT
 
-# Check for vulnerabilities using osv-scanner
-if command -v osv-scanner &>/dev/null; then
-    OSV_RESULTS=$(osv-scanner --json | jq '.results')
-    if [[ ! -z "$OSV_RESULTS" ]]; then
-        echo "Detected Vulnerabilities:" >> $REPORT
-        echo "$OSV_RESULTS" >> $REPORT
-        echo "<li>Detected Vulnerabilities:</li><pre>$OSV_RESULTS</pre>" >> $HTML_REPORT
+LOG_FILES=("/var/log/syslog" "/var/log/messages" "/var/log/auth.log")
+
+for log_file in "${LOG_FILES[@]}"; do
+    if [ -f "$log_file" ]; then
+        echo "[*] Analyzing $log_file..." >> $REPORT
+        echo "<li>Analyzing $log_file:</li>" >> $HTML_REPORT
+
+        # Extract errors and warnings
+        ERRORS=$(grep -i 'error' "$log_file" | tail -n 10)
+        WARNINGS=$(grep -i 'warning' "$log_file" | tail -n 10)
+
+        if [[ ! -z "$ERRORS" ]]; then
+            echo "Errors:" >> $REPORT
+            echo "$ERRORS" >> $REPORT
+            echo "<li>Errors:</li><pre>$ERRORS</pre>" >> $HTML_REPORT
+        else
+            echo "No errors found in $log_file." >> $REPORT
+            echo "<li>No errors found in $log_file.</li>" >> $HTML_REPORT
+        fi
+
+        if [[ ! -z "$WARNINGS" ]]; then
+            echo "Warnings:" >> $REPORT
+            echo "$WARNINGS" >> $REPORT
+            echo "<li>Warnings:</li><pre>$WARNINGS</pre>" >> $HTML_REPORT
+        else
+            echo "No warnings found in $log_file." >> $REPORT
+            echo "<li>No warnings found in $log_file.</li>" >> $HTML_REPORT
+        fi
     else
-        echo "No vulnerabilities detected using osv-scanner." >> $REPORT
-        echo "<li>No vulnerabilities detected using osv-scanner.</li>" >> $HTML_REPORT
+        echo "$log_file not found." >> $REPORT
+        echo "<li>$log_file not found.</li>" >> $HTML_REPORT
     fi
-else
-    echo "osv-scanner not installed or not found in PATH." >> $REPORT
-    echo "<li>osv-scanner not installed or not found in PATH.</li>" >> $HTML_REPORT
-fi
+done
 
 echo "</ul>" >> $HTML_REPORT
 
