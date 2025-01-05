@@ -20,6 +20,9 @@
 - 🕵️ **Vulnerability Scanning**:
   1. Analyze installed packages for known CVEs using `osv-scanner`.
   2. Detect weak SSH configurations for enhanced security.
+- 📊 **Log Analysis**:
+  1. Analyze system logs (`/var/log/syslog`, `/var/log/auth.log`).
+  2. Identify errors and warnings for further investigation.
 - 📊 **Dynamic Reporting**:
   1. Generate detailed reports in text and HTML formats.
   2. HTML reports include an easy-to-read, structured layout.
@@ -125,6 +128,22 @@ Detected Vulnerabilities:
     "severity": "MEDIUM"
   }
 ]
+---------------------------------------
+Log Analysis:
+[*] Analyzing /var/log/syslog...
+Errors:
+Jan 05 10:30:45 server-name kernel: [12345.678] ERROR: Disk quota exceeded
+Jan 05 11:00:12 server-name sshd[1234]: error: PAM: Authentication failure for user root
+
+Warnings:
+Jan 05 11:15:00 server-name kernel: [12345.999] WARNING: High memory usage detected
+
+[*] Analyzing /var/log/auth.log...
+Errors:
+Jan 05 12:00:00 server-name sshd[5678]: error: Failed password for invalid user admin from 192.168.1.50 port 22 ssh2
+
+Warnings:
+Jan 05 12:30:00 server-name sshd[5678]: warning: Authentication failure for user root
 ```
 
 ### HTML Report:
