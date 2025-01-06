@@ -1,6 +1,6 @@
 # 🛡️ Linux Security Dashboard
 
-**Linux Security Dashboard** is a comprehensive, open-source tool designed to monitor and enhance the security of Linux systems. It provides detailed security insights, including firewall status, file permissions, user activity, network monitoring, and system vulnerabilities, through dynamic reports in text and HTML formats.
+**Linux Security Dashboard** is a comprehensive, open-source tool designed to monitor and enhance the security of Linux systems. It provides detailed security insights, including firewall status, file permissions, user activity, network monitoring, log analysis, file integrity monitoring, and system vulnerabilities, through dynamic reports in text and HTML formats.
 
 ---
 
@@ -23,6 +23,9 @@
 - 📊 **Log Analysis**:
   1. Analyze system logs (`/var/log/syslog`, `/var/log/auth.log`).
   2. Identify errors and warnings for further investigation.
+- 🛡️ **File Integrity Monitoring**:
+  1. Monitor critical system files (e.g., `/etc/passwd`, `/etc/shadow`) for unauthorized changes.
+  2. Generate and compare SHA-256 hashes to ensure file integrity.
 - 📊 **Dynamic Reporting**:
   1. Generate detailed reports in text and HTML formats.
   2. HTML reports include an easy-to-read, structured layout.
@@ -112,23 +115,6 @@ Suspicious External Connections:
 Proto Recv-Q Send-Q Local Address           Foreign Address         State
 tcp        0      0 192.168.1.100:54321     23.45.67.89:80          ESTABLISHED
 ---------------------------------------
-Vulnerability Scanning:
-Detected Vulnerabilities:
-[
-  {
-    "package": "openssl",
-    "version": "1.1.1",
-    "cve": "CVE-2024-12345",
-    "severity": "HIGH"
-  },
-  {
-    "package": "curl",
-    "version": "7.68.0",
-    "cve": "CVE-2024-67890",
-    "severity": "MEDIUM"
-  }
-]
----------------------------------------
 Log Analysis:
 [*] Analyzing /var/log/syslog...
 Errors:
@@ -144,6 +130,12 @@ Jan 05 12:00:00 server-name sshd[5678]: error: Failed password for invalid user 
 
 Warnings:
 Jan 05 12:30:00 server-name sshd[5678]: warning: Authentication failure for user root
+---------------------------------------
+File Integrity Monitoring:
+[*] Comparing file hashes with reference...
+Integrity check passed for /etc/passwd
+WARNING: Integrity check failed for /etc/shadow
+/etc/hosts not found during integrity check.
 ```
 
 ### HTML Report:
