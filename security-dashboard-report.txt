@@ -67,3 +67,9 @@ Jan 05 12:00:00 server-name sshd[5678]: error: Failed password for invalid user 
 
 Warnings:
 Jan 05 12:30:00 server-name sshd[5678]: warning: Authentication failure for user root
+---------------------------------------
+File Integrity Monitoring:
+[*] Comparing file hashes with reference...
+Integrity check passed for /etc/passwd
+WARNING: Integrity check failed for /etc/shadow
+/etc/hosts not found during integrity check.
