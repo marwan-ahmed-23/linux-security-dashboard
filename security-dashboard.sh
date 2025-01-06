@@ -149,6 +149,51 @@ done
 
 echo "</ul>" >> $HTML_REPORT
 
+# File Integrity Monitoring
+echo "[+] Checking File Integrity..."
+echo "File Integrity Monitoring:" >> $REPORT
+echo "<h2>File Integrity Monitoring</h2><ul>" >> $HTML_REPORT
+
+# Define files to monitor
+FILES_TO_MONITOR=("/etc/passwd" "/etc/shadow" "/etc/hosts")
+INTEGRITY_REFERENCE="file_integrity_reference.txt"
+
+# Generate or compare file hashes
+if [ ! -f "$INTEGRITY_REFERENCE" ]; then
+    echo "[*] Creating initial integrity reference file..."
+    for file in "${FILES_TO_MONITOR[@]}"; do
+        if [ -f "$file" ]; then
+            sha256sum "$file" >> "$INTEGRITY_REFERENCE"
+            echo "<li>Initial hash recorded for $file</li>" >> $HTML_REPORT
+        else
+            echo "$file not found." >> $REPORT
+            echo "<li>$file not found.</li>" >> $HTML_REPORT
+        fi
+    done
+    echo "Integrity reference file created: $INTEGRITY_REFERENCE" >> $REPORT
+else
+    echo "[*] Comparing file hashes with reference..."
+    while read -r line; do
+        HASH=$(echo "$line" | awk '{print $1}')
+        FILE=$(echo "$line" | awk '{print $2}')
+        if [ -f "$FILE" ]; then
+            CURRENT_HASH=$(sha256sum "$FILE" | awk '{print $1}')
+            if [ "$HASH" != "$CURRENT_HASH" ]; then
+                echo "WARNING: Integrity check failed for $FILE" >> $REPORT
+                echo "<li>WARNING: Integrity check failed for $FILE</li>" >> $HTML_REPORT
+            else
+                echo "Integrity check passed for $FILE" >> $REPORT
+                echo "<li>Integrity check passed for $FILE</li>" >> $HTML_REPORT
+            fi
+        else
+            echo "$FILE not found during integrity check." >> $REPORT
+            echo "<li>$FILE not found during integrity check.</li>" >> $HTML_REPORT
+        fi
+    done < "$INTEGRITY_REFERENCE"
+fi
+
+echo "</ul>" >> $HTML_REPORT
+
 # Finalize HTML report
 echo "</body></html>" >> $HTML_REPORT
 
