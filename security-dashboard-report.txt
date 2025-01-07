@@ -73,3 +73,8 @@ File Integrity Monitoring:
 Integrity check passed for /etc/passwd
 WARNING: Integrity check failed for /etc/shadow
 /etc/hosts not found during integrity check.
+---------------------------------------
+User Privilege Analysis:
+Users with sudo privileges: root, admin
+Users with no password: testuser
+Users with open home directories: john
