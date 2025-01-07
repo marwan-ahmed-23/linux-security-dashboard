@@ -29,6 +29,11 @@
 - 📊 **Dynamic Reporting**:
   1. Generate detailed reports in text and HTML formats.
   2. HTML reports include an easy-to-read, structured layout.
+- 👤 **User Privilege Analysis**:
+  1. Identify users with sudo privileges.
+  2. Detect users without passwords.
+  3. Highlight users with open home directories.
+
 - 🌐 **Web Interface** (Planned):
   1. A lightweight web-based dashboard for real-time security monitoring.
 
@@ -136,6 +141,11 @@ File Integrity Monitoring:
 Integrity check passed for /etc/passwd
 WARNING: Integrity check failed for /etc/shadow
 /etc/hosts not found during integrity check.
+---------------------------------------
+User Privilege Analysis:
+Users with sudo privileges: root, admin
+Users with no password: testuser
+Users with open home directories: john
 ```
 
 ### HTML Report:
