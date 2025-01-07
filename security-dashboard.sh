@@ -194,6 +194,47 @@ fi
 
 echo "</ul>" >> $HTML_REPORT
 
+# User Privilege Analysis
+echo "[+] Analyzing User Privileges..."
+echo "User Privilege Analysis:" >> $REPORT
+echo "<h2>User Privilege Analysis</h2><ul>" >> $HTML_REPORT
+
+# Users with sudo privileges
+SUDO_USERS=$(getent group sudo | cut -d: -f4)
+if [[ ! -z "$SUDO_USERS" ]]; then
+    echo "Users with sudo privileges: $SUDO_USERS" >> $REPORT
+    echo "<li>Users with sudo privileges: $SUDO_USERS</li>" >> $HTML_REPORT
+else
+    echo "No users with sudo privileges found." >> $REPORT
+    echo "<li>No users with sudo privileges found.</li>" >> $HTML_REPORT
+fi
+
+# Users with no password
+echo "[*] Checking for users with no password..." >> $REPORT
+echo "<li>Checking for users with no password:</li>" >> $HTML_REPORT
+NO_PASSWORD_USERS=$(awk -F: '($2 == "" || $2 == "*") { print $1 }' /etc/shadow)
+if [[ ! -z "$NO_PASSWORD_USERS" ]]; then
+    echo "Users with no password: $NO_PASSWORD_USERS" >> $REPORT
+    echo "<pre>Users with no password: $NO_PASSWORD_USERS</pre>" >> $HTML_REPORT
+else
+    echo "All users have passwords set." >> $REPORT
+    echo "<li>All users have passwords set.</li>" >> $HTML_REPORT
+fi
+
+# Users with open home directories
+echo "[*] Checking for open home directories..." >> $REPORT
+echo "<li>Checking for open home directories:</li>" >> $HTML_REPORT
+OPEN_HOME_USERS=$(find /home -type d -perm /o+w 2>/dev/null | awk -F/ '{print $3}')
+if [[ ! -z "$OPEN_HOME_USERS" ]]; then
+    echo "Users with open home directories: $OPEN_HOME_USERS" >> $REPORT
+    echo "<pre>Users with open home directories: $OPEN_HOME_USERS</pre>" >> $HTML_REPORT
+else
+    echo "No users with open home directories found." >> $REPORT
+    echo "<li>No users with open home directories found.</li>" >> $HTML_REPORT
+fi
+
+echo "</ul>" >> $HTML_REPORT
+
 # Finalize HTML report
 echo "</body></html>" >> $HTML_REPORT
 
