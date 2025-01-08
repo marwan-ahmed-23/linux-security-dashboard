@@ -20,6 +20,7 @@
 - 🕵️ **Vulnerability Scanning**:
   1. Analyze installed packages for known CVEs using `osv-scanner`.
   2. Detect weak SSH configurations for enhanced security.
+  3. Perform comprehensive system audits using `lynis`.
 - 📊 **Log Analysis**:
   1. Analyze system logs (`/var/log/syslog`, `/var/log/auth.log`).
   2. Identify errors and warnings for further investigation.
@@ -33,7 +34,9 @@
   1. Identify users with sudo privileges.
   2. Detect users without passwords.
   3. Highlight users with open home directories.
-
+- 🌐 **Advanced Security Vulnerability Detection**:
+  1. Perform `lynis` system audits.
+  2. Analyze SSH configurations for weak settings and provide recommendations.
 - 🌐 **Web Interface** (Planned):
   1. A lightweight web-based dashboard for real-time security monitoring.
 
@@ -146,6 +149,19 @@ User Privilege Analysis:
 Users with sudo privileges: root, admin
 Users with no password: testuser
 Users with open home directories: john
+---------------------------------------
+Advanced Security Vulnerability Detection:
+[*] Running Lynis system audit:
+Hardening index: 75 [Medium]
+Recommendations:
+- Disable root login over SSH
+- Restrict access to /var/log
+- Check file permissions for sensitive files
+
+[*] Analyzing SSH configuration:
+Weak SSH configurations detected:
+PermitRootLogin yes
+PasswordAuthentication yes
 ```
 
 ### HTML Report:
