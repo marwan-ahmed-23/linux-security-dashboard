@@ -78,3 +78,16 @@ User Privilege Analysis:
 Users with sudo privileges: root, admin
 Users with no password: testuser
 Users with open home directories: john
+---------------------------------------
+Advanced Security Vulnerability Detection:
+[*] Running Lynis system audit:
+Hardening index: 75 [Medium]
+Recommendations:
+- Disable root login over SSH
+- Restrict access to /var/log
+- Check file permissions for sensitive files
+
+[*] Analyzing SSH configuration:
+Weak SSH configurations detected:
+PermitRootLogin yes
+PasswordAuthentication yes
