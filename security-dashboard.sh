@@ -108,7 +108,41 @@ else
 fi
 echo "</ul>" >> $HTML_REPORT
 
-# Analyze System Logs
+# Advanced Security Vulnerability Detection
+echo "[+] Running Advanced Security Vulnerability Detection..."
+echo "Advanced Security Vulnerability Detection:" >> $REPORT
+echo "<h2>Advanced Security Vulnerability Detection</h2><ul>" >> $HTML_REPORT
+
+# Run Lynis for system auditing
+if command -v lynis &>/dev/null; then
+    echo "[*] Running Lynis system audit..." >> $REPORT
+    echo "<li>Running Lynis system audit:</li>" >> $HTML_REPORT
+    LYNIS_RESULTS=$(lynis audit system --quick 2>/dev/null | tail -n 20)
+    echo "$LYNIS_RESULTS" >> $REPORT
+    echo "<pre>$LYNIS_RESULTS</pre>" >> $HTML_REPORT
+else
+    echo "Lynis not installed or not found in PATH." >> $REPORT
+    echo "<li>Lynis not installed or not found in PATH.</li>" >> $HTML_REPORT
+fi
+
+# Check SSH configuration for weaknesses
+echo "[*] Analyzing SSH configuration..." >> $REPORT
+echo "<li>Analyzing SSH configuration:</li>" >> $HTML_REPORT
+if [ -f /etc/ssh/sshd_config ]; then
+    WEAK_SSH_CONFIG=$(grep -Ei "PermitRootLogin yes|PasswordAuthentication yes" /etc/ssh/sshd_config)
+    if [[ ! -z "$WEAK_SSH_CONFIG" ]]; then
+        echo "Weak SSH configurations detected:" >> $REPORT
+        echo "$WEAK_SSH_CONFIG" >> $REPORT
+        echo "<pre>Weak SSH configurations detected: $WEAK_SSH_CONFIG</pre>" >> $HTML_REPORT
+    else
+        echo "No weak SSH configurations found." >> $REPORT
+        echo "<li>No weak SSH configurations found.</li>" >> $HTML_REPORT
+    fi
+else
+    echo "SSH configuration file not found." >> $REPORT
+    echo "<li>SSH configuration file not found.</li>" >> $HTML_REPORT
+fi
+
 echo "[+] Analyzing System Logs..."
 echo "Log Analysis:" >> $REPORT
 echo "<h2>Log Analysis</h2><ul>" >> $HTML_REPORT
