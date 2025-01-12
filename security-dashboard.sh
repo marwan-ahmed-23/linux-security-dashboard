@@ -7,9 +7,12 @@ echo "====================================="
 REPORT="security-dashboard-report.txt"
 HTML_REPORT="security-dashboard-report.html"
 
-# Initialize HTML report
-echo "<!DOCTYPE html><html><head><title>Linux Security Dashboard</title></head><body>" > $HTML_REPORT
-echo "<h1>Linux Security Dashboard Report - $(date)</h1>" >> $HTML_REPORT
+# Initialize HTML report with enhanced styling
+echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>" > $HTML_REPORT
+echo "<title>Linux Security Dashboard</title>" >> $HTML_REPORT
+echo "<link rel='stylesheet' href='styles.css'>" >> $HTML_REPORT
+echo "</head><body>" >> $HTML_REPORT
+echo "<header><h1>Linux Security Dashboard Report - $(date)</h1></header>" >> $HTML_REPORT
 
 # Check Firewall Status
 echo "[+] Checking Firewall Status..."
@@ -17,10 +20,10 @@ if command -v ufw &>/dev/null; then
     FIREWALL_STATUS=$(ufw status)
     echo "Firewall Status:" >> $REPORT
     echo "$FIREWALL_STATUS" >> $REPORT
-    echo "<h2>Firewall Status</h2><pre>$FIREWALL_STATUS</pre>" >> $HTML_REPORT
+    echo "<section><h2>Firewall Status</h2><pre>$FIREWALL_STATUS</pre></section>" >> $HTML_REPORT
 else
     echo "UFW not installed." >> $REPORT
-    echo "<h2>Firewall Status</h2><pre>UFW not installed.</pre>" >> $HTML_REPORT
+    echo "<section><h2>Firewall Status</h2><p>UFW not installed.</p></section>" >> $HTML_REPORT
 fi
 
 # Check Sensitive File Permissions
