@@ -1,44 +1,58 @@
-# 🛡️ Linux Security Dashboard
+# 🛡️ Enhanced Linux Security Dashboard
 
-**Linux Security Dashboard** is a comprehensive, open-source tool designed to monitor and enhance the security of Linux systems. It provides detailed security insights, including firewall status, file permissions, user activity, network monitoring, log analysis, file integrity monitoring, and system vulnerabilities, through dynamic reports in text and HTML formats.
+**Linux Security Dashboard** is a dynamic, open-source tool designed to monitor and enhance Linux system security. This version combines detailed security insights with an improved UI, additional features, and better performance.
 
 ---
 
 ## 🚀 Features
 
-- 🔥 **Firewall Status Monitoring**: Check if UFW is active and list the current rules.
-- 🔐 **Sensitive File Permissions**: Audit critical system files (e.g., `/etc/passwd`, `/etc/shadow`).
+- 🔥 **Firewall Status Monitoring**:
+  - Check if UFW is active and list the current rules.
+
+- 🔐 **Sensitive File Permissions**:
+  - Audit critical system files (e.g., `/etc/passwd`, `/etc/shadow`).
+
 - 👤 **User Management**:
   1. Identify inactive or suspicious user accounts.
   2. Detect users with administrative privileges (sudo).
+
 - 🛠️ **System Updates**:
   1. Check for available security updates.
   2. Highlight outdated packages.
+
 - 🌐 **Network Activity Monitoring**:
   1. Display active network connections (TCP/UDP).
   2. Detect suspicious external connections.
+
 - 🕵️ **Vulnerability Scanning**:
   1. Analyze installed packages for known CVEs using `osv-scanner`.
   2. Detect weak SSH configurations for enhanced security.
   3. Perform comprehensive system audits using `lynis`.
+
 - 📊 **Log Analysis**:
   1. Analyze system logs (`/var/log/syslog`, `/var/log/auth.log`).
   2. Identify errors and warnings for further investigation.
+
 - 🛡️ **File Integrity Monitoring**:
   1. Monitor critical system files (e.g., `/etc/passwd`, `/etc/shadow`) for unauthorized changes.
   2. Generate and compare SHA-256 hashes to ensure file integrity.
+
 - 📊 **Dynamic Reporting**:
   1. Generate detailed reports in text and HTML formats.
-  2. HTML reports include an easy-to-read, structured layout.
+  2. HTML reports include an easy-to-read, structured layout with responsive design.
+
 - 👤 **User Privilege Analysis**:
   1. Identify users with sudo privileges.
   2. Detect users without passwords.
   3. Highlight users with open home directories.
+
 - 🌐 **Advanced Security Vulnerability Detection**:
   1. Perform `lynis` system audits.
   2. Analyze SSH configurations for weak settings and provide recommendations.
+
 - 🌐 **Web Interface** (Planned):
   1. A lightweight web-based dashboard for real-time security monitoring.
+
 
 ## 📂 Directory Structure
 
@@ -47,6 +61,7 @@ linux-security-dashboard/
 ├── security-dashboard.sh              # Main script for security checks
 ├── security-dashboard-report.txt      # Example text report
 ├── security-dashboard-report.html     # Example HTML report
+├── styles.css                         # Enhanced styling for HTML reports
 ├── LICENSE                            # License file
 └── README.md                          # Documentation
 ```
@@ -67,6 +82,10 @@ linux-security-dashboard/
 3. Install `osv-scanner` if not already installed:
    ```bash
    sudo apt install osv-scanner
+   ```
+4. Optional: Install `lynis` for advanced auditing:
+   ```bash
+   sudo apt install lynis
    ```
 
 ### Running the Tool
@@ -118,50 +137,15 @@ Active Connections:
 Proto Recv-Q Send-Q Local Address           Foreign Address         State
 tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN
 tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
-
-Suspicious External Connections:
-Proto Recv-Q Send-Q Local Address           Foreign Address         State
-tcp        0      0 192.168.1.100:54321     23.45.67.89:80          ESTABLISHED
 ---------------------------------------
 Log Analysis:
-[*] Analyzing /var/log/syslog...
 Errors:
-Jan 05 10:30:45 server-name kernel: [12345.678] ERROR: Disk quota exceeded
-Jan 05 11:00:12 server-name sshd[1234]: error: PAM: Authentication failure for user root
+- Disk quota exceeded
+- Authentication failure for user root
 
 Warnings:
-Jan 05 11:15:00 server-name kernel: [12345.999] WARNING: High memory usage detected
-
-[*] Analyzing /var/log/auth.log...
-Errors:
-Jan 05 12:00:00 server-name sshd[5678]: error: Failed password for invalid user admin from 192.168.1.50 port 22 ssh2
-
-Warnings:
-Jan 05 12:30:00 server-name sshd[5678]: warning: Authentication failure for user root
+- High memory usage detected
 ---------------------------------------
-File Integrity Monitoring:
-[*] Comparing file hashes with reference...
-Integrity check passed for /etc/passwd
-WARNING: Integrity check failed for /etc/shadow
-/etc/hosts not found during integrity check.
----------------------------------------
-User Privilege Analysis:
-Users with sudo privileges: root, admin
-Users with no password: testuser
-Users with open home directories: john
----------------------------------------
-Advanced Security Vulnerability Detection:
-[*] Running Lynis system audit:
-Hardening index: 75 [Medium]
-Recommendations:
-- Disable root login over SSH
-- Restrict access to /var/log
-- Check file permissions for sensitive files
-
-[*] Analyzing SSH configuration:
-Weak SSH configurations detected:
-PermitRootLogin yes
-PasswordAuthentication yes
 ```
 
 ### HTML Report:
@@ -172,10 +156,8 @@ Open `security-dashboard-report.html` for a visually structured version of the r
 
 - Advanced User Analysis:
 - Highlight users with risky configurations or recent failed login attempts.
-- Web Interface:
-- Provide a lightweight web dashboard for real-time security monitoring.
 - Task Automation:
-- Schedule periodic scans using `cron` or systemd timers.
+- Schedule periodic scans using `cron` or `systemd`.
 - Custom Rules:
 - Allow users to define specific rules for security checks.
 
