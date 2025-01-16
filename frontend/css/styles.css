@@ -1,0 +1,9 @@
+body {
+  background-color: #f8f9fa;
+  font-family: "Arial", sans-serif;
+}
+
+h1,
+h3 {
+  font-weight: 700;
+}
