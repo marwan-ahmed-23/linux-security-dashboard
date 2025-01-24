@@ -59,25 +59,25 @@ A full-stack application for real-time monitoring and analysis of Linux system s
 linux-security-dashboard/
 ├── backend/
 │   ├── src/
-│   │   ├── app.js                         # Main Express server setup & configuration
+│   │   ├── app.js                          # Main Express server setup & configuration
 │   │   ├── routes/
-│   │   │   ├── system.js                  # Routes for system information & open ports
-│   │   │   ├── vulnerabilities.js         # Routes for vulnerability scanning
-│   │   │   └── logs.js                    # Routes for failed login logs or system logs
+│   │   │   ├── system.js                   # Routes for system information & open ports
+│   │   │   ├── vulnerabilities.js          # Routes for vulnerability scanning
+│   │   │   └── logs.js                     # Routes for failed login logs or system logs
 │   │   ├── controllers/
-│   │   │   ├── systemController.js        # Business logic for system data (info/ports)
-│   │   │   ├── vulnerabilityController.js # Business logic for scanning vulnerabilities
-│   │   │   └── logsController.js          # Business logic for handling & cleaning logs
+│   │   │   ├── systemController.js         # Business logic for system data (info/ports)
+│   │   │   ├── vulnerabilityController.js  # Business logic for scanning vulnerabilities
+│   │   │   └── logsController.js           # Business logic for handling & cleaning logs
 │   │   ├── models/
-│   │   │   └── SystemLog.js               # Mongoose model (example) for storing system logs
+│   │   │   └── SystemLog.js                # Mongoose model (example) for storing system logs
 │   │   └── utils/
-│   │       ├── systemInfo.js              # Helper functions to fetch system info/ports
-│   │       └── vulnerabilityScanner.js    # Utility to run Nmap or other scan tools
-│   ├── package.json                       # Backend dependencies & scripts
-│   └── Dockerfile                         # Dockerfile for containerizing the backend
+│   │       ├── systemInfo.js               # Helper functions to fetch system info/ports
+│   │       └── vulnerabilityScanner.js     # Utility to run Nmap or other scan tools
+│   ├── package.json                        # Backend dependencies & scripts
+│   └── Dockerfile                          # Dockerfile for containerizing the backend
 ├── frontend/
 │   ├── public/
-│   │   └── index.html                     # Main HTML entry for the React application
+│   │   └── index.html                      # Main HTML entry for the React application
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── SystemDashboard.jsx         # Displays system info (CPU, memory, etc.)
